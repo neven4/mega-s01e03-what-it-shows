@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "esbuild": "^0.25.12",
+    "mdsvex": "^0.12.8",
+    "svelte": "^5.57.3"
+  },
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node render.mjs && node analyze.mjs"
+  }
+}

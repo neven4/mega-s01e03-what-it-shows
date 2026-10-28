@@ -1,0 +1,85 @@
+---
+layout: runbook
+title: '0002 · Separate the causes hidden in #4471'
+owner: neven4
+status: proposed
+reviewed: '2026-10-28'
+signature: 'neven4 / Codex gpt-6.1-sol / S01E03 / 2026-10-28'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import IncidentReview from '#lib/kb/IncidentReview.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+## What the current views show
+
+The [incident page](/kb/incidents/4471) says “one issue, one fix queued.” Its own
+components show two causes. This review uses the 4 October export, not a live ticket feed.
+The review date records this analysis; it does not make the underlying export current.
+
+<CauseTable ticket={4471} />
+
+Counts come from `uniqueById`, `groupByCause`, and the tenant directory. The intake tag
+is a browser-based guess; neither that tag nor the subject line establishes the cause.
+The counts are the supplied classifier's assignments, not independent reproduction of
+every reported symptom.
+
+## Separate the fixes
+
+### Shared parser
+
+For a day-first tenant, app/email reports and forms without the conflicting hint are
+assigned to `parser`. The shared parser reads month first. For example, R-41205 from
+`morrow.tax` reports 3 October becoming 10 March. That tenant uses `fr-FR`, although the
+reporter's browser is `en-US` and intake guessed `hint`.
+
+Fix the parser to follow the tenant's date order, then test ambiguous inputs such as
+`03/10/2026` and unambiguous days above twelve. Keep these reports in the parser ticket.
+The timing exceptions listed below still need investigation; do not promise that this fix
+resolves them.
+
+### Booking-v3 date hint
+
+For a day-first tenant using `booking-v3`, a report through `form` is assigned to `hint`.
+That form displays `MM/DD/YYYY` but reads the tenant's day-first format. R-41230 from
+`copper.studio` reports 6 January becoming 1 June, despite intake tagging it `parser`.
+
+Make the displayed hint agree with the form's tenant-specific interpretation. Test the
+form and hint together, including day-first and month-first locales. This needs its own
+ticket and verification; changing the shared parser does not correct the hint.
+
+## What happened in the queue
+
+<QueueTimeline ticket={4471} />
+
+<IncidentReview />
+
+## Proposed replacement for subject-only merging
+
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) is an accepted historical record;
+leave it unchanged. The [triage page](/kb/triage/dedupe) still applies its rule, reviewed
+in June 2024. Its render-time stale warning is a reason to check the evidence. The concrete
+counterexamples below are why the rule needs replacement, regardless of its age.
+This record proposes that replacement; desk acceptance and updating the triage page remain pending.
+
+<DedupeExplorer />
+
+- Different subjects can describe the same cause: app and email from `kettle.books`.
+- The same subject can hide different causes: form and app from `alder.physio`.
+- The same subject and channel can hide different causes: `copper.studio` and `morrow.tax` forms.
+- Unknown tenants are unplaced; a matching subject does not justify merging them.
+
+Deduplicate export rows by report ID first. Then read each body and look up the tenant's
+locale, booking-form version, and entry channel. Use the classifier as evidence, check for
+contradicting symptoms, and merge only when the underlying problem matches. Keep uncertain
+reports for investigation rather than forcing them into a familiar cause.
+
+Engineering should track each confirmed cause separately, retain each report ID and its
+assignment, and verify each fix against representative inputs. Re-read and render this page
+when new exports arrive: these components recompute their results from the files at build time.
+
+<RenderStamp {signature} />
