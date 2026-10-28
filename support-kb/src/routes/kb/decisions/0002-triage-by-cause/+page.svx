@@ -4,7 +4,7 @@ title: '0002 · Separate the causes hidden in #4471'
 owner: neven4
 status: proposed
 reviewed: '2026-10-28'
-signature: 'neven4 / Codex gpt-6.1-sol / S01E03 / 2026-10-28'
+signature: 'v1.eyJzdWIiOiIzNDQwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMTE2MDUsImV4cCI6MTc5MzI5ODAwNX0.3Bsz6qaWXCqV40iU8DBNfQ3XWog4MIo-b4_jDvjQ7tg'
 ---
 
 <script>

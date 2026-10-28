@@ -50,7 +50,7 @@ source remain suitable for that app.
 - Exact report-ID deduplication reconciles the issue counts to the export total; repeated rows are identical.
 - The exported classifier is run directly, including platform-derived locale date order.
 - Same-subject/different-cause and different-subject/same-cause counterexamples are checked.
-- The new page renders its signature-derived desk reference, `DR-B6PD-DFNJ`.
+- The new page renders its desk reference derived from the course-issued frontmatter signature.
 - No live product fix or live-product reproduction is claimed.
 
 The export hash is recorded in `support-kb/evidence/export-sha256.txt`.

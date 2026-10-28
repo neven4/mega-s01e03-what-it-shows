@@ -9,8 +9,8 @@ const root = path.resolve(here, '../support-kb');
 const data = path.join(root, 'src/lib/data');
 const evidence = path.join(root, 'evidence');
 const json = async (name) => JSON.parse(await readFile(name, 'utf8'));
-await build({ entryPoints: [path.join(root, 'src/lib/kb/causes.ts')], bundle: true, platform: 'node', format: 'esm', outfile: path.join(here, 'causes.mjs') });
-const { uniqueById, groupByCause, causeOf, sameCause } = await import(pathToFileURL(path.join(here, 'causes.mjs')));
+await build({ stdin: { contents: `export * from ${JSON.stringify(path.join(root, 'src/lib/kb/causes.ts'))}; export * from ${JSON.stringify(path.join(root, 'src/lib/kb/desk-ref.ts'))};`, resolveDir: here }, bundle: true, platform: 'node', format: 'esm', outfile: path.join(here, 'causes.mjs') });
+const { uniqueById, groupByCause, causeOf, sameCause, deskRef } = await import(pathToFileURL(path.join(here, 'causes.mjs')));
 const raw = await json(path.join(data, 'reports-4471.json'));
 const reports = uniqueById(raw).filter((report) => report.mergedInto === 4471);
 const tenants = new Map(await Promise.all((await readdir(path.join(data, 'tenants'))).map(async (name) => {
@@ -47,7 +47,9 @@ await writeFile(path.join(evidence, 'summary.json'), JSON.stringify(summary, nul
 await writeFile(path.join(evidence, 'report-assignments.json'), JSON.stringify(assignments, null, 2) + '\n');
 const html = await readFile(path.join(root, 'rendered/kb/decisions/0002-triage-by-cause/index.html'), 'utf8');
 assert.match(html, /desk ref/);
-assert.match(html, /DR-B6PD-DFNJ/);
+const source = await readFile(path.join(root, 'src/routes/kb/decisions/0002-triage-by-cause/+page.svx'), 'utf8');
+const signature = source.match(/^signature: '([^']+)'/m)[1];
+assert.ok(html.includes(deskRef(signature)));
 assert.doesNotMatch(html, /no desk ref/);
 assert.match(html, /379/);
 assert.match(html, /33/);
