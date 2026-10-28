@@ -15,13 +15,30 @@ signature: 'neven4 / Codex gpt-6.1-sol / S01E03 / 2026-10-28'
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-## What the current views show
+## What the export views show
 
-The [incident page](/kb/incidents/4471) says “one issue, one fix queued.” Its own
-components show two causes. This review uses the 4 October export, not a live ticket feed.
+The exported [incident page](/kb/incidents/4471) says “one issue, one fix queued.” Its own
+components show two causes. These views use the 4 October export, before the split tickets
+were filed; their labels do not describe today's GitHub ticket state.
 The review date records this analysis; it does not make the underlying export current.
 
 <CauseTable ticket={4471} />
+
+## Engineering outcome, 5 October
+
+The [course's engineering update](https://hq.mega.dev/challenges/what-it-shows) now records
+`#4471 · closed 05 oct`, with separate outcomes:
+
+- **Parser: fixed**, `fix(dates): parse dd/mm for eu locales`.
+  The [parser ticket](https://github.com/neven4/mega-s01e03-what-it-shows/issues/1)
+  is closed as completed on that evidence.
+- **Hint: won't fix**, because the `booking-v3` form was retired.
+  The [hint ticket](https://github.com/neven4/mega-s01e03-what-it-shows/issues/2)
+  is closed as not planned. Retirement is not a shipped hint correction.
+
+This outcome comes from the later desk update, not from inferring resolution from the
+export's merge count. The five timing exceptions below still lack a separately verified
+explanation; the update does not establish that the parser patch resolves every symptom.
 
 Counts come from `uniqueById`, `groupByCause`, and the tenant directory. The intake tag
 is a browser-based guess; neither that tag nor the subject line establishes the cause.

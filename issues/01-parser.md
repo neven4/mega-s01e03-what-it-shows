@@ -45,3 +45,10 @@ the incident onset, and “known / fix queued” does not establish resolution.
 Correct tenant-specific parsing and test representative app/email and booking-v2 inputs.
 Keep booking-v3's misleading form hint separate. Preserve the report-ID membership from
 `evidence/report-assignments.json`, and reassess the five timing exceptions before closure.
+
+## Engineering outcome
+
+The [course's desk update](https://hq.mega.dev/challenges/what-it-shows) reports
+`#4471 · closed 05 oct`: parser **fixed**, `fix(dates): parse dd/mm for eu locales`.
+Closed as completed on that engineering evidence. This does not establish a separate
+explanation for the five timing anomalies; no live-product validation was performed here.

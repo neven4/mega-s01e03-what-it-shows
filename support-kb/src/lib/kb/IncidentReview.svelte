@@ -24,7 +24,8 @@
   <strong>{batch.filter((r) => r.receivedAt.slice(0, 10) < '2026-07-02').length}</strong>
   had arrived earlier. That batch is backlog processing, not the start of the incident.
   <strong>{merged.filter((r) => r.mergedAt && r.mergedAt.slice(0, 10) > '2026-07-02').length}</strong>
-  more reports were merged after that day. The export does not show a successful fix.
+  more reports were merged after that day. The export alone does not show a successful fix;
+  the later engineering update above supplies the separate parser and hint outcomes.
 </p>
 <table>
   <thead><tr><th>month</th><th>received</th><th>merged</th></tr></thead>

@@ -9,6 +9,11 @@ explicitly flagged for investigation rather than asserted to have a proven parse
 
 ## Deliverables
 
+The course accepted both tickets. Its later engineering update records #4471 closed on
+5 October: the parser was fixed; the booking-v3 hint was not fixed because the form was
+retired. The split tickets are closed as completed and not planned respectively, and the
+signed page distinguishes this later evidence from the earlier export.
+
 - [Parser ticket draft](issues/01-parser.md): 379 unique reports, with the five unexplained timing symptoms called out.
 - [Form-hint ticket draft](issues/02-form-hint.md): 33 unique reports across three booking-v3 tenants.
 - [Signed KB page](support-kb/src/routes/kb/decisions/0002-triage-by-cause/+page.svx).

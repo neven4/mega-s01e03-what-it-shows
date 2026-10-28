@@ -34,3 +34,10 @@ this hint mismatch.
 Keep these reports in their own ticket. Membership is recorded in
 `evidence/report-assignments.json`; 379 parser-assigned reports plus these 33 reconcile to
 the 412 unique reports in the export, with no overlap.
+
+## Engineering outcome
+
+The [course's desk update](https://hq.mega.dev/challenges/what-it-shows) reports
+`#4471 · closed 05 oct`: hint **won't fix**, `booking-v3 form retired`.
+Closed as not planned because the affected form was retired. This is not a claim that
+the form hint was corrected or that a hint fix shipped.
